@@ -1,36 +1,28 @@
-// Load the NPM Package inquirer
+var mysql = require("mysql");
 var inquirer = require("inquirer");
 
-// Create a "Prompt" with a series of questions.
-inquirer
-  .prompt([
-    // Here we create a basic text prompt.
-    {
-      type: "input",
-      message: "What is the product ID you would like to buy?",
-      name: "productID"
-    },
-    // Here we create a basic password-protected text prompt.
-    {
-      type: "input",
-      message: "How many units of the product would you like to buy?",
-      name: "unitsToBuy"
-    },
-    // Here we ask the user to confirm.
-    {
-      type: "confirm",
-      message: "Are you sure:",
-      name: "confirm",
-      default: true
-    }
-  ])
-//   .then(function(inquirerResponse) {
-//     // If the inquirerResponse confirms, we displays the inquirerResponse's username and pokemon from the answers.
-//     if (inquirerResponse.confirm) {
-//       console.log("\nWelcome " + inquirerResponse.username);
-//       console.log("Your " + inquirerResponse.pokemon + " is ready for battle!\n");
-//     }
-//     else {
-//       console.log("\nThat's okay " + inquirerResponse.username + ", come again when you are more sure.\n");
-//     }
-//   });
+// create the connection information for the sql database
+var connection = mysql.createConnection({
+  host: "localhost",
+
+  // Your port; if not 3306
+  port: 3306,
+
+  // Your username
+  user: "root",
+
+  // Your password
+  password: "root",
+  database: "bamazon"
+});
+
+// connect to the mysql server and sql database
+connection.connect(function (err) {
+  if (err) throw err;
+  // run the start function after the connection is made to prompt the user
+  start();
+});
+
+// function which prompts the user for what action they should take
+
+
