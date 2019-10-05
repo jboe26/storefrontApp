@@ -1,4 +1,4 @@
-  
+
 // Dependencies
 var mysql = require('mysql');
 var wrap = require('word-wrap');
@@ -34,7 +34,7 @@ function itemsForSale() {
             header.push(prop);
         }
 
-        // instantiate 
+
         var table = new Table({
             head: header,
             colWidths: [20, 55, 10, 20]
@@ -53,13 +53,13 @@ function itemsForSale() {
 }
 
 // sets function for cutomer to make a purchase
-// list gets the items id's as an array and passed to the promt/choices param
+// list gets the items id's as an array and passed to the choices param
 function purchaseItem(list) {
     inquirer
         .prompt([{
             name: "buy",
             type: "list",
-            message: "Please indicate which item would you like to purchase?",
+            message: "Please indicate which item you would like to purchase?",
             choices: list
         },
         {
@@ -105,6 +105,7 @@ function updateStock(quantity, item_id) {
         function (error) {
             if (error) throw error;
             console.log("Quantity was successfully updated!");
+
             connection.end();
         });
 }
