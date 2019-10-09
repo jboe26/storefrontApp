@@ -28,6 +28,7 @@ connection.connect(function (err) {
 function itemsForSale() {
     connection.query("SELECT item_id, product_name, price, department_name FROM products WHERE price > 0;", function (err, result) {
         // gets and builds the table header
+        console.log(result[0])
         var obj = result[0];
         var header = [];
         for (var prop in obj) {
@@ -71,7 +72,7 @@ function purchaseItem(list) {
             // sets a query to select the item the user has chosen
             var query = "SELECT item_id, stock_quantity, price FROM products WHERE ?";
             connection.query(query, { item_id: answer.buy }, function (err, res) {
-                // console.log(res);
+                 console.log(`Stock quantity: ${res[0].stock_quantity}`);
                 var inputQuantity = answer.quantity;
                 checkStock(res[0].stock_quantity, inputQuantity, res[0].price.toFixed(2), res[0].item_id);
             });
@@ -82,11 +83,11 @@ function purchaseItem(list) {
 function checkStock(on_stock, buy_quantity, price, item_id) {
     if (on_stock >= buy_quantity) {
         var total_price = buy_quantity * price;
-        console.log(`Your total amount is $${total_price}.\nThank you for your purchase on BAMAZON!`.green);
+        console.log(`Your total amount is $${total_price}.\nThank you for your purchase on BAMAZON!`);
         // updates database
         updateStock(buy_quantity, item_id);
     } else {
-        console.log(`Insufficient quantity on stock!\nOnly ${on_stock} items on stock!`.red);
+        console.log(`Insufficient quantity on stock!\nOnly ${on_stock} items on stock!`);
         connection.end();
     }
 }
